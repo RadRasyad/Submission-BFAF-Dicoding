@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:indorestaurant/data/model/detail_restaurant.dart';
+import 'package:indorestaurant/widget/review_item_row.dart';
 class DetailPageView extends StatelessWidget {
 
   final DetailRestaurant restaurant;
@@ -57,29 +58,47 @@ class DetailPageView extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline4)),
             Container(
               margin: const EdgeInsets.only(left: 16.0, right: 8.0, top: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    const Icon(Icons.place_outlined),
-                    Text(
-                      restaurant.city,
-                      textAlign: TextAlign.start,
-                    ),
-                  ]),
-                  const SizedBox(width: 32.0),
-                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    const Icon(Icons.star, color: Colors.orangeAccent),
-                    Text(
-                      restaurant.rating.toString(),
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                        const Icon(Icons.location_city_outlined),
+                        Text(
+                          restaurant.city,
+                          textAlign: TextAlign.start,
+                        ),
+                      ]),
+                      const SizedBox(width: 32.0),
+                      Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                        const Icon(Icons.star, color: Colors.orangeAccent),
+                        Text(
+                          restaurant.rating.toString(),
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ]),
+                    ],
+                  ),
+                  const SizedBox(height: 8.0,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                        const Icon(Icons.place_outlined),
+                        Text(
+                          restaurant.address,
+                          textAlign: TextAlign.start,
+                        ),
+                      ]),
+                    ],
+                  ),
                 ],
-              ),
+              )
             ),
             Container(
               margin: const EdgeInsets.all(4.0),
@@ -94,13 +113,22 @@ class DetailPageView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      'Category',
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    const SizedBox(height: 8.0),
+                    _BuildChipsItems(menuItem: restaurant.categories),
+                    const SizedBox(height: 8.0),
+                    Text(
                       'Description',
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     const SizedBox(height: 4.0),
                     Text(restaurant.description,
                         textAlign: TextAlign.justify,
-                        style: Theme.of(context).textTheme.bodyText2)
+                        style: Theme.of(context).textTheme.bodyText2),
+
                   ],
                 )),
             Container(
@@ -122,17 +150,67 @@ class DetailPageView extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8.0),
-                    _BuildMenuItems(menuItem: restaurant.menus.foods),
+                    _BuildChipsItems(menuItem: restaurant.menus.foods),
                     const SizedBox(height: 8.0),
                     const Text(
                       'Drinks',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8.0),
-                    _BuildMenuItems(menuItem: restaurant.menus.drinks),
+                    _BuildChipsItems(menuItem: restaurant.menus.drinks),
                     const SizedBox(height: 8.0),
                   ],
                 )),
+            Container(
+              margin: const EdgeInsets.all(4.0),
+              child: const Divider(
+                color: Colors.black,
+                thickness: 1.2,
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Review',
+                  style: Theme.of(context).textTheme.headline6
+                  ),
+                  SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: restaurant.customerReviews.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var review = restaurant.customerReviews[index];
+                        return ReviewItemRow(review: review);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Container(
+              margin: const EdgeInsets.symmetric(
+                  horizontal: 16.0
+              ),
+              child: TextButton.icon(
+                  onPressed: () {
+                    //Navigator.pushNamed(context, SearchPage.routeName);
+                  },
+                  style: const ButtonStyle(
+                    foregroundColor: MaterialStatePropertyAll(Color(0xFF2B1706)),
+                    overlayColor: MaterialStatePropertyAll(Color(0xFFE07465)),
+                  ),
+                  icon: Icon(Icons.create),
+                  label: const Text(
+                      'Tulis Ulasan'
+                  )
+              ),
+            ),
+            const SizedBox(height: 40.0),
           ],
         ),
       ),
@@ -140,10 +218,10 @@ class DetailPageView extends StatelessWidget {
   }
 }
 
-class _BuildMenuItems extends StatelessWidget {
+class _BuildChipsItems extends StatelessWidget {
   final List<Category> menuItem;
 
-  const _BuildMenuItems({Key? key, required this.menuItem}) : super(key: key);
+  const _BuildChipsItems({Key? key, required this.menuItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
