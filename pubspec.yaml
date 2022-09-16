@@ -32,6 +32,8 @@ dependencies:
   easy_splash_screen: ^1.0.4
   google_fonts: ^3.0.1
   lottie: ^1.4.2
+  http: ^0.13.5
+  provider: ^6.0.3
   flutter:
     sdk: flutter
 
@@ -62,8 +64,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/local_restaurant.json
-    - assets/empty_data.json
     - assets/lottie/lottie_empty.json
     - assets/img/ic_restaurant.png
 

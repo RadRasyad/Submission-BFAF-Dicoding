@@ -1,79 +1,50 @@
+
 import 'package:flutter/material.dart';
-import 'package:indorestaurant/model/restaurant.dart';
+import 'package:provider/provider.dart';
+import 'package:indorestaurant/data/api/api_service.dart';
+import 'package:indorestaurant/provider/restaurant_provider.dart';
 import 'package:indorestaurant/ui/restaurant_detail_page.dart';
+import 'package:indorestaurant/data/model/restaurant.dart';
+import 'package:indorestaurant/widget/restaurant_item_row.dart';
 import 'package:lottie/lottie.dart';
 
 class RestaurantListPage extends StatelessWidget {
-  static const routeName = '/restaurant_list';
-
-  const RestaurantListPage({super.key});
+  const RestaurantListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: const Text(
-          'IndoRestaurant',
-        ),
-        backgroundColor: const Color(0xFFEE7465),
-      ),
-      body: FutureBuilder<String>(
-        future: DefaultAssetBundle.of(context)
-            .loadString('assets/local_restaurant.json'),
-        builder: (context, snapshot) {
-          try {
-            final List<Restaurant> restaurant = parseRestaurant(snapshot.data);
-            return ListView.builder(
-              itemCount: restaurant.length,
-              itemBuilder: (context, index) {
-                return _buildRestaurantItem(context, restaurant[index]);
-              },
-            );
-          } catch (e) {
-            return _buildEmptyData(context);
-          }
-        },
-      ),
-    );
-  }
-
-  Widget _buildRestaurantItem(BuildContext context, Restaurant restaurant) {
-    return Material(
-      child: ListTile(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        leading: Hero(
-          tag: restaurant.pictureId,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(15.0),
-            child: Image.network(
-              restaurant.pictureId,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
+    return Consumer<RestaurantProvider>
+      (builder: (context, state, _) {
+      if (state.state == ResultState.loading) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (state.state == ResultState.hasData) {
+        return ListView.builder(
+            shrinkWrap: true,
+            itemCount: state.result.restaurants.length,
+            itemBuilder: (context, index) {
+              var restaurant = state.result.restaurants[index];
+              return RestaurantItemRow(restaurant: restaurant);
+            });
+      } else if (state.state == ResultState.noData) {
+        return Center(
+          child: Material(
+            child: Text(state.message),
           ),
-        ),
-        title: Text(restaurant.name,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.headline6),
-        subtitle:
-            Text(restaurant.city, style: Theme.of(context).textTheme.bodyText2),
-        trailing: Column(
-          children: [
-            const Icon(Icons.star, color: Colors.orangeAccent),
-            Text(
-              restaurant.rating.toString(),
-            )
-          ],
-        ),
-        onTap: () {
-          Navigator.pushNamed(context, RestaurantDetailPage.routeName,
-              arguments: restaurant);
-        },
-      ),
-    );
+        );
+      } else if (state.state == ResultState.error) {
+        return Center(
+          child: Material(
+            child: Text(state.message),
+          ),
+        );
+      } else {
+        return const Center(
+          child: Material(
+            child: Text(''),
+          ),
+        );
+      }
+    });
   }
 
   Widget _buildEmptyData(BuildContext context) {
