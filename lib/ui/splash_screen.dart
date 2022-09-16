@@ -1,5 +1,6 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:indorestaurant/ui/home_page.dart';
 import 'package:indorestaurant/ui/restaurant_list_page.dart';
 
 class SplashScreenPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class SplashScreenPage extends StatelessWidget {
     return EasySplashScreen(
       logo: Image.asset('assets/img/ic_restaurant.png'),
       backgroundColor: Colors.white,
-      navigator: const RestaurantListPage(),
+      navigator: const HomePage(),
       durationInSeconds: 1,
       showLoader: false,
     );

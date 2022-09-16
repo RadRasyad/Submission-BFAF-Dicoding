@@ -16,8 +16,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RestaurantProvider>(
       create: (_) => RestaurantProvider(apiService: ApiService()),
-      child: const CustomAppbar(body: RestaurantListPage(),),
+      child: const CustomAppbar(body: RestaurantListPage()),
     );
   }
 
 }
+

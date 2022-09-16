@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:indorestaurant/ui/home_page.dart';
 import 'package:indorestaurant/ui/restaurant_detail_page.dart';
-import 'package:indorestaurant/ui/restaurant_list_page.dart';
 import 'package:indorestaurant/ui/splash_screen.dart';
 import 'package:indorestaurant/values/style.dart';
 

@@ -28,8 +28,8 @@ Card _buildCustomAppBar(BuildContext context) {
     margin: const EdgeInsets.all(0),
     child: Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 30.0,
-        horizontal: 20.0,
+        vertical: 8.0,
+        horizontal: 8.0,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -39,7 +39,7 @@ Card _buildCustomAppBar(BuildContext context) {
             children: [
               Text(
                 "IndoRestaurant",
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline6,
               ),
               IconButton(
                 onPressed: () {
