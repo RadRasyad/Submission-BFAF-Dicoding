@@ -1,13 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:indorestaurant/widget/error_view.dart';
+import 'package:indorestaurant/widget/empty_state.dart';
+import 'package:indorestaurant/widget/error_state.dart';
 import 'package:provider/provider.dart';
-import 'package:indorestaurant/data/api/api_service.dart';
 import 'package:indorestaurant/provider/restaurant_provider.dart';
-import 'package:indorestaurant/ui/restaurant_detail_page.dart';
-import 'package:indorestaurant/data/model/restaurant.dart';
 import 'package:indorestaurant/widget/restaurant_item_row.dart';
-import 'package:lottie/lottie.dart';
 
 class RestaurantListPage extends StatelessWidget {
   const RestaurantListPage({Key? key}) : super(key: key);
@@ -27,9 +24,9 @@ class RestaurantListPage extends StatelessWidget {
               return RestaurantItemRow(restaurant: restaurant);
             });
       } else if (state.state == ResultState.noData) {
-        return Center(
+        return const Center(
           child: Material(
-            child: _buildEmptyData(context),
+            child: EmptyState(),
           ),
         );
       } else if (state.state == ResultState.error ||
@@ -37,7 +34,7 @@ class RestaurantListPage extends StatelessWidget {
         if (state.message.contains('Failed host lookup')) {
           return const Center(
             child: Material(
-              child: ErrorView(
+              child: ErrorState(
                 errorMsg: 'Tidak Dapat Tersambung Dengan Internet'
               ),
             ),
@@ -45,7 +42,7 @@ class RestaurantListPage extends StatelessWidget {
         }
         return const Center(
           child: Material(
-            child: ErrorView(
+            child: ErrorState(
               errorMsg: 'Tidak Ada Data Yang Ditemukan'
             ),
           ),
@@ -60,25 +57,5 @@ class RestaurantListPage extends StatelessWidget {
     });
   }
 
-  Widget _buildEmptyData(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset("assets/lottie/lottie_empty.json", height: 200.0),
-          const SizedBox(
-            height: 16.0,
-          ),
-          Text(
-            'Oops! \n Data Not Found',
-            style: Theme.of(context).textTheme.headline5,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
 
 }

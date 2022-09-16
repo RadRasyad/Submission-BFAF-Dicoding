@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:indorestaurant/ui/detail_page.dart';
 import 'package:indorestaurant/ui/home_page.dart';
+import 'package:indorestaurant/ui/search_page.dart';
 import 'package:indorestaurant/ui/splash_screen.dart';
 import 'package:indorestaurant/values/style.dart';
 
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         DetailPage.routeName: (context) => DetailPage(
               id:
                   ModalRoute.of(context)?.settings.arguments as String,
-            )
+            ),
+        SearchPage.routeName: (context) => const SearchPage()
       },
     );
   }

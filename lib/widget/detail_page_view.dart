@@ -22,7 +22,7 @@ class DetailPageView extends StatelessWidget {
                   borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(35.0)),
                   child: Image.network(
-                    'https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}',
+                    'https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}',
                     fit: BoxFit.cover,
                   ),
                 ),

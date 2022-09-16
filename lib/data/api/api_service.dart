@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:indorestaurant/data/model/detail_restaurant.dart';
 import 'package:indorestaurant/data/model/restaurant.dart';
+import 'package:indorestaurant/data/model/review.dart';
+import 'package:indorestaurant/data/model/search_restaurant.dart';
 
 class ApiService {
   static const String _baseUrl = 'https://restaurant-api.dicoding.dev/';
@@ -29,23 +31,23 @@ class ApiService {
     }
   }
 
-  // Future<SearchRestaurantResult> searchRestaurant(String name) async {
-  //   final response = await http.get(Uri.parse("$_baseUrl$_search$name"));
-  //   if (response.statusCode == 200) {
-  //     return SearchRestaurantResult.fromJson(json.decode(response.body));
-  //   } else {
-  //     throw Exception('Failed to load data');
-  //   }
-  // }
-  //
-  // Future<ReviewResult> addReview(Map<dynamic, dynamic> data) async {
-  //   final response =
-  //       await http.post(Uri.parse("$_baseUrl$_review"), body: data);
-  //   if (response.statusCode == 200) {
-  //     return ReviewResult.fromJson(json.decode(response.body));
-  //   } else {
-  //     throw Exception('Failed to post data');
-  //   }
-  // }
+  Future<SearchRestaurantResult> searchRestaurant(String name) async {
+    final response = await http.get(Uri.parse("$_baseUrl$_rSearch$name"));
+    if (response.statusCode == 200) {
+      return SearchRestaurantResult.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  Future<ReviewResult> addReview(Map<dynamic, dynamic> data) async {
+    final response =
+        await http.post(Uri.parse("$_baseUrl$_rReview"), body: data);
+    if (response.statusCode == 200) {
+      return ReviewResult.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to post data');
+    }
+  }
 
 }

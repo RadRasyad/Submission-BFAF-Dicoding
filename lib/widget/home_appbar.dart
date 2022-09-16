@@ -1,10 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:indorestaurant/ui/search_page.dart';
 
-class CustomAppbar extends StatelessWidget {
+class HomeAppbar extends StatelessWidget {
   final Widget body;
 
-  const CustomAppbar({super.key, required this.body});
+  const HomeAppbar({super.key, required this.body});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class CustomAppbar extends StatelessWidget {
           ),
     );
   }
+
 }
 
 Card _buildCustomAppBar(BuildContext context) {
@@ -47,7 +49,7 @@ Card _buildCustomAppBar(BuildContext context) {
                 ),
                 IconButton(
                   onPressed: () {
-                    //Navigator.pushNamed(context, SearchPage.routeName);
+                    Navigator.pushNamed(context, SearchPage.routeName);
                   },
                   icon: const Icon(Icons.search),
                 ),

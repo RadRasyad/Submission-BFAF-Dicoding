@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
 
-class ErrorView extends StatelessWidget {
+class ErrorState extends StatelessWidget {
   final String errorMsg;
 
-  const ErrorView({Key? key, required this.errorMsg})
+  const ErrorState({Key? key, required this.errorMsg})
       : super(key: key);
 
   @override
