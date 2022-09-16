@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:indorestaurant/widget/error_view.dart';
 import 'package:provider/provider.dart';
 import 'package:indorestaurant/data/api/api_service.dart';
 import 'package:indorestaurant/provider/restaurant_provider.dart';
@@ -28,13 +29,25 @@ class RestaurantListPage extends StatelessWidget {
       } else if (state.state == ResultState.noData) {
         return Center(
           child: Material(
-            child: Text(state.message),
+            child: _buildEmptyData(context),
           ),
         );
-      } else if (state.state == ResultState.error) {
-        return Center(
+      } else if (state.state == ResultState.error ||
+          state.state == ResultState.noData) {
+        if (state.message.contains('Failed host lookup')) {
+          return const Center(
+            child: Material(
+              child: ErrorView(
+                errorMsg: 'Tidak Dapat Tersambung Dengan Internet'
+              ),
+            ),
+          );
+        }
+        return const Center(
           child: Material(
-            child: Text(state.message),
+            child: ErrorView(
+              errorMsg: 'Tidak Ada Data Yang Ditemukan'
+            ),
           ),
         );
       } else {
@@ -67,4 +80,5 @@ class RestaurantListPage extends StatelessWidget {
       ),
     );
   }
+
 }

@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:indorestaurant/data/model/restaurant.dart';
-import 'package:indorestaurant/ui/restaurant_detail_page.dart';
+import 'package:indorestaurant/ui/detail_page.dart';
 
 class RestaurantItemRow extends StatelessWidget {
   final Restaurant restaurant;
@@ -13,7 +13,7 @@ class RestaurantItemRow extends StatelessWidget {
     return Material(
       child: ListTile(
         contentPadding:
-        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
         leading: Hero(
           tag: restaurant.pictureId,
           child: ClipRRect(
@@ -39,10 +39,10 @@ class RestaurantItemRow extends StatelessWidget {
             )
           ],
         ),
-        // onTap: () {
-        //   Navigator.pushNamed(context, RestaurantDetailPage.routeName,
-        //       arguments: restaurant);
-        // },
+        onTap: () {
+          Navigator.pushNamed(context, DetailPage.routeName,
+              arguments: restaurant.id);
+        },
       ),
     );
   }
