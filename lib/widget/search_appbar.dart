@@ -11,6 +11,7 @@ class SearchAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Column(
             children: [
@@ -20,6 +21,7 @@ class SearchAppbar extends StatelessWidget {
               ),
             ],
           )),
+
     );
   }
 
@@ -75,30 +77,27 @@ class _BuildSearchAppBarState extends State<BuildSearchAppBar> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child:
-            Expanded(
-              child: TextField(
-                cursorColor: Colors.black,
-                controller: _controller,
-                decoration: const InputDecoration(
-                  hintText: 'Search',
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10.0),
-                    ),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10.0),
-                    ),
-                  ),
+          TextField(
+            cursorColor: Colors.black,
+            controller: _controller,
+            decoration: const InputDecoration(
+              hintText: 'Search',
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
                 ),
-                onSubmitted: (value) {
-                  Provider.of<SearchRestaurantProvider>(context, listen: false)
-                      .changeSearchString(value);
-                },
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
               ),
             ),
-
+            onSubmitted: (value) {
+              Provider.of<SearchRestaurantProvider>(context, listen: false)
+                  .changeSearchString(value);
+            },
+          ),
         ),
       ],
     );

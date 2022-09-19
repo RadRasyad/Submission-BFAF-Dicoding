@@ -12,7 +12,9 @@ class RestaurantDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DetailRestaurantProvider>(builder: (context, state, _) {
       if (state.state == ResultState.loading) {
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: CircularProgressIndicator(
+          color: Color(0xFFE07465),
+        ));
       } else if (state.state == ResultState.hasData) {
         var restaurant = state.result.restaurant;
         return DetailPageView(restaurant: restaurant);

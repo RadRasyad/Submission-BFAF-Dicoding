@@ -26,4 +26,5 @@ class ErrorState extends StatelessWidget {
       ],
     );
   }
+
 }

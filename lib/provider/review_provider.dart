@@ -12,11 +12,11 @@ class ReviewProvider extends ChangeNotifier {
   ReviewProvider({required this.apiService});
   late ReviewResult _reviewResult;
   late ResultState _state;
-  late Map<dynamic, dynamic> _data;
+  late Map<dynamic, dynamic> _dataReview;
 
-  String _id = '';
-  String _name = '';
-  String _review = '';
+  String _rId = '';
+  String _rName = '';
+  String _rReview = '';
 
   ReviewResult get result => _reviewResult;
 
@@ -26,7 +26,7 @@ class ReviewProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      final review = await apiService.addReview(_data);
+      final review = await apiService.addReview(_dataReview);
       if (review.error == false) {
         notifyListeners();
         return _state = ResultState.error;
@@ -40,26 +40,26 @@ class ReviewProvider extends ChangeNotifier {
     }
   }
 
+  void changeId(String id) {
+    _rId = id;
+    notifyListeners();
+  }
+
   void changeName(String name) {
-    _name = name;
+    _rName = name;
     notifyListeners();
   }
 
   void changeReview(String review) {
-    _review = review;
-    notifyListeners();
-  }
-
-  void changeId(String id) {
-    _id = id;
+    _rReview = review;
     notifyListeners();
   }
 
   void createData() {
-    _data = {
-      'id': _id,
-      'name': _name,
-      'review': _review,
+    _dataReview = {
+      'id': _rId,
+      'name': _rName,
+      'review': _rReview,
     };
     notifyListeners();
   }

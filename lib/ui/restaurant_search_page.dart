@@ -12,17 +12,24 @@ class RestaurantSearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<SearchRestaurantProvider>(
+
       builder: (context, state, _) {
         if (state.state == ResultState.loading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(
+            color: Color(0xFFE07465),
+          ));
         } else if (state.state == ResultState.hasData) {
-          return ListView.builder(
-            itemCount: state.result.restaurants.length,
-            itemBuilder: (context, index) {
-              var restaurant = state.result.restaurants[index];
-              return RestaurantItemRow(restaurant: restaurant);
-            },
-          );
+          if(state.result.restaurants.isNotEmpty) {
+            return ListView.builder(
+              itemCount: state.result.restaurants.length,
+              itemBuilder: (context, index) {
+                var restaurant = state.result.restaurants[index];
+                return RestaurantItemRow(restaurant: restaurant);
+              },
+            );
+          } else {
+            return const EmptyState();
+          }
         } else if (state.state == ResultState.error ||
             state.state == ResultState.noData) {
           if (state.message.contains('Failed host lookup')) {

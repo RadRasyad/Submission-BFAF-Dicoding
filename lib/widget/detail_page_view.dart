@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:indorestaurant/data/model/detail_restaurant.dart';
+import 'package:indorestaurant/ui/review_page.dart';
 import 'package:indorestaurant/widget/review_item_row.dart';
 class DetailPageView extends StatelessWidget {
 
@@ -198,13 +199,17 @@ class DetailPageView extends StatelessWidget {
               ),
               child: TextButton.icon(
                   onPressed: () {
-                    //Navigator.pushNamed(context, SearchPage.routeName);
+                    Navigator.pushNamed(
+                        context,
+                        ReviewPage.routeName,
+                        arguments: restaurant.id
+                    );
                   },
                   style: const ButtonStyle(
                     foregroundColor: MaterialStatePropertyAll(Color(0xFF2B1706)),
                     overlayColor: MaterialStatePropertyAll(Color(0xFFE07465)),
                   ),
-                  icon: Icon(Icons.create),
+                  icon: const Icon(Icons.create),
                   label: const Text(
                       'Tulis Ulasan'
                   )

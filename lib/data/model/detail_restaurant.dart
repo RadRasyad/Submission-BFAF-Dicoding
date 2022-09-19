@@ -1,5 +1,7 @@
 
-class DetailRestaurantResult {
+import 'package:flutter/cupertino.dart';
+
+class DetailRestaurantResult extends ChangeNotifier {
   DetailRestaurantResult({
     required this.error,
     required this.message,
