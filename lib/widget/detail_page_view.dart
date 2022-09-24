@@ -1,8 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:indorestaurant/data/model/detail_restaurant.dart';
+import 'package:indorestaurant/data/model/restaurant.dart';
+import 'package:indorestaurant/provider/favorite_provider.dart';
 import 'package:indorestaurant/ui/review_page.dart';
 import 'package:indorestaurant/widget/review_item_row.dart';
+import 'package:provider/provider.dart';
 class DetailPageView extends StatelessWidget {
 
   final DetailRestaurant restaurant;
@@ -33,7 +36,7 @@ class DetailPageView extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CircleAvatar(
                           backgroundColor: Colors.black38,
@@ -47,6 +50,43 @@ class DetailPageView extends StatelessWidget {
                             },
                           ),
                         ),
+                        Consumer<FavoriteProvider>(
+                            builder: (context, provider, child){
+                              return FutureBuilder<bool>(
+                                  future: provider.isFavorited(restaurant.id),
+                                  builder: (context, snapshot) {
+                                    var isFav = snapshot.data ?? false;
+                                    return CircleAvatar(
+                                      backgroundColor: Colors.black38,
+                                      child: isFav
+                                      ? IconButton(
+                                        icon: const Icon(
+                                          Icons.favorite,
+                                          color: Colors.white,
+                                        ),
+                                        onPressed: () {
+                                          provider.removeFavorite(restaurant.id);
+                                        },
+                                      ) : IconButton(
+                                        icon: const Icon(
+                                          Icons.favorite_outline,
+                                          color: Colors.white,
+                                        ),
+                                        onPressed: () {
+                                          provider.addFavorite(
+                                              Restaurant(
+                                              id: restaurant.id,
+                                              name: restaurant.name,
+                                              description: restaurant.description,
+                                              pictureId: restaurant.pictureId,
+                                              city: restaurant.city,
+                                              rating: restaurant.rating));
+                                        },
+                                      )
+                                    );
+                                  }
+                              );
+                            })
                       ],
                     ),
                   ))

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:indorestaurant/ui/favorite_page.dart';
 import 'package:indorestaurant/ui/search_page.dart';
 
 class HomeAppbar extends StatelessWidget {
@@ -43,16 +44,33 @@ Card _buildCustomAppBar(BuildContext context) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "IndoRestaurant",
-                  style: Theme.of(context).textTheme.headline6,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "IndoRestaurant",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, SearchPage.routeName);
-                  },
-                  icon: const Icon(Icons.search),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, SearchPage.routeName);
+                      },
+                      icon: const Icon(Icons.search),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, FavoritePage.routeName);
+                      },
+                      icon: const Icon(Icons.favorite),
+                    ),
+                  ],
                 ),
+
               ],
             ),
           ],

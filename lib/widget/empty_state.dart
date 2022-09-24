@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class EmptyState extends StatelessWidget {
+  final String emptyMsg;
 
-  const EmptyState({Key? key})
+  const EmptyState({Key? key, required this.emptyMsg})
       : super(key: key);
 
   @override
@@ -20,7 +21,7 @@ class EmptyState extends StatelessWidget {
             height: 16.0,
           ),
           Text(
-            'Oops! \n Data Not Found',
+            emptyMsg,
             style: Theme.of(context).textTheme.headline5,
             textAlign: TextAlign.center,
           ),

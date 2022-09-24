@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:indorestaurant/utils/result_state.dart';
 import 'package:provider/provider.dart';
 import 'package:indorestaurant/provider/search_restaurant_provider.dart';
 import 'package:indorestaurant/widget/empty_state.dart';
@@ -28,7 +29,7 @@ class RestaurantSearchPage extends StatelessWidget {
               },
             );
           } else {
-            return const EmptyState();
+            return const EmptyState(emptyMsg: 'Oops! \n Data Not Found',);
           }
         } else if (state.state == ResultState.error ||
             state.state == ResultState.noData) {
@@ -37,9 +38,9 @@ class RestaurantSearchPage extends StatelessWidget {
               errorMsg: 'Tidak dapat tersambung dengan internet',
             );
           } else if(state.message.contains('Empty Data')) {
-            return const EmptyState();
+            return const EmptyState(emptyMsg: 'Oops! \n Data Not Found',);
           }
-          return const EmptyState();
+          return const EmptyState(emptyMsg: 'Oops! \n Data Not Found',);
         } else {
           return const Material(child: Text(''));
         }

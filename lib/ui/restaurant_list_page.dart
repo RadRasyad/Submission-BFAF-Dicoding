@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:indorestaurant/utils/result_state.dart';
 import 'package:indorestaurant/widget/empty_state.dart';
 import 'package:indorestaurant/widget/error_state.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class RestaurantListPage extends StatelessWidget {
       } else if (state.state == ResultState.noData) {
         return const Center(
           child: Material(
-            child: EmptyState(),
+            child: EmptyState(emptyMsg: 'Oops! \n Data Not Found'),
           ),
         );
       } else if (state.state == ResultState.error ||

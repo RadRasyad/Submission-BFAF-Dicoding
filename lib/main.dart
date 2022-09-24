@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:indorestaurant/ui/detail_page.dart';
+import 'package:indorestaurant/ui/favorite_page.dart';
 import 'package:indorestaurant/ui/home_page.dart';
 import 'package:indorestaurant/ui/review_page.dart';
 import 'package:indorestaurant/ui/search_page.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
         SearchPage.routeName: (context) => const SearchPage(),
         ReviewPage.routeName: (context) => ReviewPage(
             id: ModalRoute.of(context)?.settings.arguments as String
-        )
+        ),
+        FavoritePage.routeName: (context) => const FavoritePage(),
       },
     );
   }
