@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:indorestaurant/ui/favorite_page.dart';
 import 'package:indorestaurant/ui/search_page.dart';
+import 'package:indorestaurant/ui/setting_page.dart';
 
 class HomeAppbar extends StatelessWidget {
   final Widget body;
@@ -67,6 +68,12 @@ Card _buildCustomAppBar(BuildContext context) {
                         Navigator.pushNamed(context, FavoritePage.routeName);
                       },
                       icon: const Icon(Icons.favorite),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, SettingPage.routeName);
+                      },
+                      icon: const Icon(Icons.settings),
                     ),
                   ],
                 ),

@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:indorestaurant/data/db/database_helper.dart';
 import 'package:indorestaurant/data/model/restaurant.dart';
@@ -22,6 +21,7 @@ class FavoriteProvider extends ChangeNotifier {
   List<Restaurant> get favRestaurant => _favRestaurant;
 
   void _getFavorite() async {
+    _state = ResultState.loading;
     _favRestaurant = await dbHelper.getFavorites();
     if (_favRestaurant.isNotEmpty) {
       _state = ResultState.hasData;

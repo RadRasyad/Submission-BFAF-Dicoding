@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:indorestaurant/ui/search_page.dart';
 
 class FavoriteAppbar extends StatelessWidget {
   final Widget body;
