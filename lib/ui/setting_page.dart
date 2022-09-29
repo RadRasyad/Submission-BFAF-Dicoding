@@ -22,19 +22,6 @@ class _SettingPageState extends State<SettingPage> {
   final NotificationHelper _notificationHelper = NotificationHelper();
 
   @override
-  void initState() {
-    super.initState();
-    _notificationHelper
-        .configureSelectNotificationSubject(DetailPage.routeName);
-  }
-
-  @override
-  void dispose() {
-    selectNotificationSubject.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
@@ -48,5 +35,18 @@ class _SettingPageState extends State<SettingPage> {
       ],
       child: const RestaurantSettingPage(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _notificationHelper
+        .configureSelectNotificationSubject(context ,DetailPage.routeName);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    selectNotificationSubject.close();
   }
 }

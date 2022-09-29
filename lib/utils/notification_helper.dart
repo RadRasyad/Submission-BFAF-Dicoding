@@ -1,8 +1,8 @@
 
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'dart:math';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:indorestaurant/common/navigation.dart';
 import 'package:indorestaurant/data/model/restaurant.dart';
 import 'package:rxdart/subjects.dart';
 
@@ -21,25 +21,26 @@ class NotificationHelper {
   Future<void> initNotifications(
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
     var initializationSettingsAndroid =
-    const AndroidInitializationSettings('app_icon');
+        const AndroidInitializationSettings('app_icon');
 
-    var initializationSettings = InitializationSettings(
-        android: initializationSettingsAndroid);
+    var initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (String? payload) async {
-
-          selectNotificationSubject.add(payload ?? 'empty payload');
-        });
+        onDidReceiveNotificationResponse: (NotificationResponse? payload) async {
+      var data = payload?.payload;
+      if (payload != null) {
+        print('notification payload: $data');
+      } selectNotificationSubject.add(data ?? 'empty payload');
+    });
   }
 
   Future<void> showNotification(
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
       RestaurantResult restaurantResult) async {
-    var channelId = "2";
-    var channelName = "channel_02";
+    var channelId = "1";
+    var channelName = "channel_01";
     var channelDescription = "indorestaurant channel";
-    _random = Random().nextInt(restaurantResult.restaurants.length);
 
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         channelId, channelName,
@@ -52,20 +53,23 @@ class NotificationHelper {
     var platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics);
 
+    _random = Random().nextInt(restaurantResult.restaurants.length);
+    var _restaurant = restaurantResult.restaurants[_random];
+
     var titleNotification = "<b>Today Recommendation</b>";
-    var titleRestaurant = restaurantResult.restaurants[_random].name;
+    var titleRestaurant = _restaurant.name;
 
     await flutterLocalNotificationsPlugin.show(
         0, titleNotification, titleRestaurant, platformChannelSpecifics,
-        payload: json.encode(restaurantResult.toJson()));
+        payload: jsonEncode(_restaurant.toJson()));
   }
 
-  void configureSelectNotificationSubject(String route) {
+  void configureSelectNotificationSubject(BuildContext context, String route) {
     selectNotificationSubject.stream.listen(
           (String payload) async {
-        var data = RestaurantResult.fromJson(json.decode(payload));
-        var restaurant = data.restaurants[_random].id;
-        Navigation.intentWithData(route, restaurant);
+        var data = Restaurant.fromJson(jsonDecode(payload));
+        var restaurant = data.id;
+        Navigator.pushNamed(context, route, arguments: restaurant);
       },
     );
   }

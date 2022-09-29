@@ -19,6 +19,7 @@ FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   final NotificationHelper notificationHelper = NotificationHelper();
   final BackgroundService service = BackgroundService();
   service.initializeIsolate();
@@ -30,8 +31,16 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+
+}
+
+class _MyAppState extends State<MyApp> {
+  final NotificationHelper _notificationHelper = NotificationHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +49,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: textTheme,
         colorScheme:
-            ThemeData().colorScheme.copyWith(primary: const Color(0xFFE07465)),
+        ThemeData().colorScheme.copyWith(primary: const Color(0xFFE07465)),
       ),
       initialRoute: SplashScreenPage.routeName,
       routes: {
         SplashScreenPage.routeName: (context) => const SplashScreenPage(),
         HomePage.routeName: (context) => const HomePage(),
         DetailPage.routeName: (context) => DetailPage(
-              id:
-                  ModalRoute.of(context)?.settings.arguments as String
-            ),
+            id:
+            ModalRoute.of(context)?.settings.arguments as String
+        ),
         SearchPage.routeName: (context) => const SearchPage(),
         ReviewPage.routeName: (context) => ReviewPage(
             id: ModalRoute.of(context)?.settings.arguments as String
@@ -60,4 +69,16 @@ class MyApp extends StatelessWidget {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _notificationHelper
+        .configureSelectNotificationSubject(context ,DetailPage.routeName);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    selectNotificationSubject.close();
+  }
 }

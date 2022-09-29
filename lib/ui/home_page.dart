@@ -20,8 +20,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  final NotificationHelper _notificationHelper = NotificationHelper();
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RestaurantProvider>(
@@ -29,20 +27,6 @@ class _HomePageState extends State<HomePage> {
       child: const HomeAppbar(body: RestaurantListPage()),
     );
   }
-
-  @override
-  void initState() {
-    super.initState();
-    _notificationHelper
-        .configureSelectNotificationSubject(DetailPage.routeName);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    selectNotificationSubject.close();
-  }
-
 
 }
 

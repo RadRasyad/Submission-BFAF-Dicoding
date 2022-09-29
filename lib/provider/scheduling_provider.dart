@@ -16,7 +16,7 @@ class SchedulingProvider extends ChangeNotifier {
       notifyListeners();
       return await AndroidAlarmManager.periodic(
         const Duration(hours: 24),
-        2,
+        1,
         BackgroundService.callback,
         startAt: DateTimeHelper.format(),
         exact: true,
@@ -25,7 +25,7 @@ class SchedulingProvider extends ChangeNotifier {
     } else {
       print('Scheduling Restaurant Canceled');
       notifyListeners();
-      return await AndroidAlarmManager.cancel(2);
+      return await AndroidAlarmManager.cancel(1);
     }
   }
 }
