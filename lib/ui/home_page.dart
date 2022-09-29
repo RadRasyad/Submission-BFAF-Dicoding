@@ -1,7 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:indorestaurant/ui/detail_page.dart';
-import 'package:indorestaurant/utils/notification_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:indorestaurant/data/api/api_service.dart';
 import 'package:indorestaurant/provider/restaurant_provider.dart';
