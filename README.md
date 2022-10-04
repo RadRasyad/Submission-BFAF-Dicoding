@@ -1,6 +1,9 @@
 # indorestaurant
 
-A new Flutter project.
+## Preview
+<img src="https://github.com/RadRasyad/Submission-BFAF-Dicoding/blob/master/assets/screenshot/home.png" width="240"> <img src="https://github.com/RadRasyad/Submission-BFAF-Dicoding/blob/master/assets/screenshot/favorite.png" width="240"> <img src="https://github.com/RadRasyad/Submission-BFAF-Dicoding/blob/master/assets/screenshot/setting.png" width="240"> 
+
+<img src="https://github.com/RadRasyad/Submission-BFAF-Dicoding/blob/master/assets/screenshot/detail.png" width="240">  <img src="https://github.com/RadRasyad/Submission-BFAF-Dicoding/blob/master/assets/screenshot/search2.png" width="240">  <img src="https://github.com/RadRasyad/Submission-BFAF-Dicoding/blob/master/assets/screenshot/review.png" width="240"> 
 
 ## Getting Started
 
